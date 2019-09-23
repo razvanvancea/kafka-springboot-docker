@@ -1,0 +1,32 @@
+Before we start the server, we need to turn on the Kafka server using Zookeeper.
+
+1. Install&Start Zookeeper server
+https://kafka.apache.org/downloads -> Binary 2.12
+Unzip
+Execute via CMD: bin/windows/zookeeper-server-start.bat config/zookeeper.properties
+
+2. Start Kafka server
+ CMD >>>   .\bin\windows\kafka-server-start.bat .\config\server.properties
+
+3. Create kafka topic
+.\bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic Kafka_Example
+
+4. Inainte de publicare, trebuie sa consumam din topicul anterior - creem consumerul care se va conecta la acest topic
+
+CMD >>>> .\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic Kafka_Example --from-beginning
+
+5. Publish messages by Running springboot application
+
+6. Access the following http://localhost:8081/kafka/publish/Hello --- the Hello msg will be published
+
+The message will be displayed in the console of our 4th Step.
+
+
+
+----------- Docker ------------
+1. Create image
+docker build . --tag=kafka:v0.1
+
+2. Create&Run container
+docker container run -d -p 4010:8011 kafka:v0.1
+
